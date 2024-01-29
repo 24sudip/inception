@@ -139,7 +139,9 @@
                                     <li>
                                         <span class="cart_icon">
                                             <i class="icon icon-ShoppingCart"></i>
-                                            <small class="cart_counter">3</small>
+                                            <small class="cart_counter">
+                                                {{ App\Models\Cart::where('customer_id', Auth::id())->count() }}
+                                            </small>
                                         </span>
                                     </li>
                                </ul>
@@ -237,36 +239,24 @@
                 <div class="cart_sidebar">
                     <button type="button" class="close_btn"><i class="fal fa-times"></i></button>
                     <ul class="cart_items_list ul_li_block mb_30 clearfix">
+                        @foreach (App\Models\Cart::where('customer_id', Auth::id())->get() as $cart)
                         <li>
                             <div class="item_image">
-                                <img src="{{ asset('frontend_assets') }}/images/cart/cart_img_1.jpg" alt="image_not_found">
+                                <img src="{{ asset('uploads/product_photo') }}/{{ $cart->relation_to_product->thumbnail }}" alt="image_not_found">
                             </div>
                             <div class="item_content">
-                                <h4 class="item_title">Yellow Blouse</h4>
-                                <span class="item_price">$30.00</span>
+                                <h4 class="item_title">{{ $cart->relation_to_product->name }}</h4>
+                                @if ($cart->relation_to_product->discount_price)
+                                <span class="item_price">&#2547;{{ $cart->relation_to_product->discount_price }}</span>
+                                @else
+                                <span class="item_price">{{ $cart->relation_to_product->regular_price }}</span>
+                                @endif
+                                <span class="item_price">Color: {{ $cart->relation_to_color->color }}</span>
+                                <span class="item_price">Size: {{ $cart->relation_to_size->size }}</span>
                             </div>
                             <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
                         </li>
-                        <li>
-                            <div class="item_image">
-                                <img src="{{ asset('frontend_assets') }}/images/cart/cart_img_2.jpg" alt="image_not_found">
-                            </div>
-                            <div class="item_content">
-                                <h4 class="item_title">Yellow Blouse</h4>
-                                <span class="item_price">$30.00</span>
-                            </div>
-                            <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
-                        </li>
-                        <li>
-                            <div class="item_image">
-                                <img src="{{ asset('frontend_assets') }}/images/cart/cart_img_3.jpg" alt="image_not_found">
-                            </div>
-                            <div class="item_content">
-                                <h4 class="item_title">Yellow Blouse</h4>
-                                <span class="item_price">$30.00</span>
-                            </div>
-                            <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
-                        </li>
+                        @endforeach
                     </ul>
 
                     <ul class="total_price ul_li_block mb_30 clearfix">
@@ -287,11 +277,17 @@
                             <span>$75.6</span>
                         </li>
                     </ul>
-
+                    @auth()
                     <ul class="btns_group ul_li_block clearfix">
-                        <li><a class="btn btn_primary" href="cart.html">View Cart</a></li>
+                        <li><a class="btn btn_primary" href="{{ route('cartView', Auth::id()) }}">View Cart</a></li>
                         <li><a class="btn btn_secondary" href="checkout.html">Checkout</a></li>
                     </ul>
+                    @else
+                    <ul class="btns_group ul_li_block clearfix">
+                        <li><a class="btn btn_primary" href="{{ route('accounts') }}">Login</a></li>
+                        <li><a class="btn btn_secondary" href="{{ route('accounts') }}">Register</a></li>
+                    </ul>
+                    @endauth
                 </div>
 
                 <div class="cart_overlay"></div>

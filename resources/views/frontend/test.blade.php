@@ -407,5 +407,26 @@
     <div class="slider_item">
         <img src="assets/images/details/product_details_img_4.png" alt="image_not_found">
     </div>
+
+    <li>
+        <div class="item_image">
+            <img src="{{ asset('frontend_assets') }}/images/cart/cart_img_2.jpg" alt="image_not_found">
+        </div>
+        <div class="item_content">
+            <h4 class="item_title">Yellow Blouse</h4>
+            <span class="item_price">$30.00</span>
+        </div>
+        <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
+    </li>
+    <li>
+        <div class="item_image">
+            <img src="{{ asset('frontend_assets') }}/images/cart/cart_img_3.jpg" alt="image_not_found">
+        </div>
+        <div class="item_content">
+            <h4 class="item_title">Yellow Blouse</h4>
+            <span class="item_price">$30.00</span>
+        </div>
+        <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
+    </li>
 </body>
 </html>

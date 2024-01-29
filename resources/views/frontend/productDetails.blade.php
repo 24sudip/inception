@@ -33,10 +33,9 @@
             </div>
 
             <div class="col-lg-6">
-                <form action="{{ route('cart') }}" method="POST">
+                <form action="{{ route('cart', $products->id) }}" method="POST">
                     @csrf
-                    <input type="number" value="{{ $products->id }}" hidden name="product_id">
-                    <input type="number" value="{{ auth()->id() }}" hidden name="user_id">
+                    {{-- <input type="number" value="{{ auth()->id() }}" hidden name="user_id"> --}}
                     <div class="product_details_content">
                         <h2 class="item_title">{{ $products->name }}</h2>
                         <p>{{ $products->description }}</p>
