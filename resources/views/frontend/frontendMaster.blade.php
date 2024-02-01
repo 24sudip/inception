@@ -187,7 +187,7 @@
                                         <i class="fal fa-times"></i>
                                     </button>
                                     <ul class="main_menu_list ul_li">
-                                        <li><a class="nav-link" href="#">Home</a></li>
+                                        <li><a class="nav-link" href="{{ route('customer_home') }}">Home</a></li>
                                         <li><a class="nav-link" href="{{ url('about') }}">About us</a></li>
                                         <li><a class="nav-link" href="#">Shop</a></li>
                                         <li><a class="nav-link" href="#">Contact Us</a></li>
@@ -236,6 +236,9 @@
             <!-- sidebar cart - start
             ================================================== -->
             <div class="sidebar-menu-wrapper">
+                @php
+                    $total = 0;
+                @endphp
                 <div class="cart_sidebar">
                     <button type="button" class="close_btn"><i class="fal fa-times"></i></button>
                     <ul class="cart_items_list ul_li_block mb_30 clearfix">
@@ -247,39 +250,36 @@
                             <div class="item_content">
                                 <h4 class="item_title">{{ $cart->relation_to_product->name }}</h4>
                                 @if ($cart->relation_to_product->discount_price)
-                                <span class="item_price">&#2547;{{ $cart->relation_to_product->discount_price }}</span>
+                                <span class="item_price">&#2547; {{ $cart->relation_to_product->discount_price }} X {{ $cart->quantity }}</span>
                                 @else
-                                <span class="item_price">{{ $cart->relation_to_product->regular_price }}</span>
+                                <span class="item_price">&#2547; {{ $cart->relation_to_product->regular_price }} X {{ $cart->quantity }}</span>
                                 @endif
                                 <span class="item_price">Color: {{ $cart->relation_to_color->color }}</span>
                                 <span class="item_price">Size: {{ $cart->relation_to_size->size }}</span>
                             </div>
-                            <button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
+                            <a href="{{ route('cartDelete', $cart->id) }}" class="remove_btn"><i class="fal fa-trash-alt"></i></a>
                         </li>
+                        @php
+                            if ($cart->relation_to_product->discount_price) {
+                                $product_price = $cart->relation_to_product->discount_price;
+                            } else {
+                                $product_price = $cart->relation_to_product->regular_price;
+                            }
+                            $total += $product_price * $cart->quantity;
+                        @endphp
                         @endforeach
                     </ul>
 
                     <ul class="total_price ul_li_block mb_30 clearfix">
-                        <li>
-                            <span>Subtotal:</span>
-                            <span>$90</span>
-                        </li>
-                        <li>
-                            <span>Vat 5%:</span>
-                            <span>$4.5</span>
-                        </li>
-                        <li>
-                            <span>Discount 20%:</span>
-                            <span>- $18.9</span>
-                        </li>
+
                         <li>
                             <span>Total:</span>
-                            <span>$75.6</span>
+                            <span>&#2547; {{ $total }}</span>
                         </li>
                     </ul>
                     @auth()
                     <ul class="btns_group ul_li_block clearfix">
-                        <li><a class="btn btn_primary" href="{{ route('cartView', Auth::id()) }}">View Cart</a></li>
+                        <li><a class="btn btn_primary" href="{{ route('cartView') }}">View Cart</a></li>
                         <li><a class="btn btn_secondary" href="checkout.html">Checkout</a></li>
                     </ul>
                     @else

@@ -22,9 +22,13 @@ class CartController extends Controller
         ]);
         return back()->with('cartInsertMsg','Cart Added Successfully');
     }
-    public function cartView($id)
+    public function cartView()
     {
-        $user = User::find($id);
         return view('frontend.cartView');
+    }
+    public function cartDelete($cart_delete_id)
+    {
+        Cart::find($cart_delete_id)->delete();
+        return back();
     }
 }

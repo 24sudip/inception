@@ -67,7 +67,8 @@ Route::get('/productDetails/{id}', [FrontendController::class, 'productDetails']
 
 // cart
 Route::post('/cart/{id}', [CartController::class, 'cart'])->name('cart');
-Route::get('/cartView/{id}', [CartController::class, 'cartView'])->name('cartView');
+Route::get('/cartView', [CartController::class, 'cartView'])->name('cartView');
+Route::get('/cartDelete/{cart_delete_id}', [CartController::class, 'cartDelete'])->name('cartDelete');
 // cart
 
 Auth::routes();
