@@ -17,6 +17,9 @@
                         <th class="text-center">Remove</th>
                     </tr>
                 </thead>
+                @php
+                    $total = 0;
+                @endphp
                 <tbody>
                     @foreach (App\Models\Cart::where('customer_id', Auth::id())->get() as $cart)
                     <tr>
@@ -36,11 +39,12 @@
                         <td class="text-center">
                             <form action="#">
                                 <div class="quantity_input">
-                                    <button type="button" class="input_number_decrement">
+                                    <button type="button" class="input_number_decrement btn_d">
                                         <i class="fal fa-minus"></i>
                                     </button>
-                                    <input class="input_number_2" type="text" value="{{ $cart->quantity }}">
-                                    <button type="button" class="input_number_increment">
+                                    <input class="input_number_2" type="text" value="{{ $cart->quantity }}"
+                                    name="quantity[{{ $cart->id }}]">
+                                    <button type="button" class="input_number_increment btn_i">
                                         <i class="fal fa-plus"></i>
                                     </button>
                                 </div>
@@ -53,8 +57,16 @@
                             <span class="price_text">${{ $cart->relation_to_product->regular_price * $cart->quantity }}</span>
                             @endif
                         </td>
-                        <td class="text-center"><button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button></td>
+                        <td class="text-center"><a href="{{ route('cartDelete', $cart->id) }}" type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></a></td>
                     </tr>
+                    @php
+                        if ($cart->relation_to_product->discount_price) {
+                            $product_price = $cart->relation_to_product->discount_price;
+                        } else {
+                            $product_price = $cart->relation_to_product->regular_price;
+                        }
+                        $total += $product_price * $cart->quantity;
+                    @endphp
                     @endforeach
                 </tbody>
             </table>
@@ -75,8 +87,21 @@
                 </div>
 
                 <div class="col col-lg-6">
+                    <form action="{{ route('cartUpdate') }}" method="post">
+                        @csrf
+                        @foreach (App\Models\Cart::where('customer_id', Auth::id())->get() as $cart)
+                        <input class="input_number_2" type="text" hidden value="{{ $cart->quantity }}"
+                        name="quantity[{{ $cart->id }}]">
+                        @endforeach
+
+                        @if (session('crtUpdtMsg'))
+                        <div class="alert alert-success">{{ session('crtUpdtMsg') }}</div>
+                        @endif
+                        <ul class="btns_group ul_li_right">
+                            <li><button class="btn border_black">Update Cart</button></li>
+                        </ul>
+                    </form>
                     <ul class="btns_group ul_li_right">
-                        <li><a class="btn border_black" href="#!">Update Cart</a></li>
                         <li><a class="btn btn_dark" href="#!">Prceed To Checkout</a></li>
                     </ul>
                 </div>
@@ -107,7 +132,7 @@
                     <ul class="ul_li_block">
                         <li>
                             <span>Cart Subtotal</span>
-                            <span>$52.50</span>
+                            <span>${{ $total }}</span>
                         </li>
                         <li>
                             <span>Delivery Charge</span>

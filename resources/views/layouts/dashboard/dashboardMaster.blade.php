@@ -780,7 +780,7 @@
 							<span class="nav-text">Dashboard</span>
 						</a>
                         <ul aria-expanded="false">
-							<li><a href="index.html">Dashboard</a></li>
+							<li><a href="{{ route('home') }}">Dashboard</a></li>
 							<li><a href="workout-statistic.html">Workout Statistic</a></li>
 							<li><a href="workoutplan.html">Workout Plan</a></li>
 							<li><a href="distance-map.html">Distance Map</a></li>
@@ -815,6 +815,14 @@
                         <li><a href="{{ route('color.index') }}">Add Color</a></li>
                     </ul>
                 </li>
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+							<i class="flaticon-381-layer-1"></i>
+							<span class="nav-text">Coupon</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('coupon') }}">Add Coupon</a></li>
+                        </ul>
+                    </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-381-layer-1"></i>
 							<span class="nav-text">Pages</span>

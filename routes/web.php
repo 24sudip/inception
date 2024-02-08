@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\{CategoryController, ColorController};
+use App\Http\Controllers\{CategoryController, ColorController, CouponController};
 use App\Http\Controllers\{ProductController, VariationsController, InventoryController, CartController};
 use Illuminate\Support\Facades\Auth;
 
@@ -67,9 +67,15 @@ Route::get('/productDetails/{id}', [FrontendController::class, 'productDetails']
 
 // cart
 Route::post('/cart/{id}', [CartController::class, 'cart'])->name('cart');
-Route::get('/cartView', [CartController::class, 'cartView'])->name('cartView');
 Route::get('/cartDelete/{cart_delete_id}', [CartController::class, 'cartDelete'])->name('cartDelete');
+Route::get('/cartView', [CartController::class, 'cartView'])->name('cartView');
+Route::post('/cartUpdate', [CartController::class, 'cartUpdate'])->name('cartUpdate');
 // cart
+
+// Coupon
+Route::get('/coupon', [CouponController::class, 'coupon'])->name('coupon');
+Route::post('/couponAdd', [CouponController::class, 'couponAdd'])->name('couponAdd');
+// Coupon
 
 Auth::routes();
 //Route::get('/register', function () {
