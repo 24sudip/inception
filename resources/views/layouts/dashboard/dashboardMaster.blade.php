@@ -781,11 +781,6 @@
 						</a>
                         <ul aria-expanded="false">
 							<li><a href="{{ route('home') }}">Dashboard</a></li>
-							<li><a href="workout-statistic.html">Workout Statistic</a></li>
-							<li><a href="workoutplan.html">Workout Plan</a></li>
-							<li><a href="distance-map.html">Distance Map</a></li>
-							<li><a href="food-menu.html">Diet Food Menu</a></li>
-							<li><a href="personal-record.html">Personal Record</a></li>
 						</ul>
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">

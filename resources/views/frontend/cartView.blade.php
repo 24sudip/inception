@@ -75,9 +75,14 @@
         <div class="cart_btns_wrap">
             <div class="row">
                 <div class="col col-lg-6">
-                    <form action="#">
+                    @if ($msg)
+                    <div class="alert alert-danger">{{ $msg }}</div>
+                    @else
+                    <p>Type Coupon Name</p>
+                    @endif
+                    <form action="" method="GET">
                         <div class="coupon_form form_item mb-0">
-                            <input type="text" name="coupon" placeholder="Coupon Code...">
+                            <input type="text" name="coupon_name" placeholder="Coupon Code">
                             <button type="submit" class="btn btn_dark">Apply Coupon</button>
                             <div class="info_icon">
                                 <i class="fas fa-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Your Info Here"></i>
@@ -127,12 +132,22 @@
             </div>
 
             <div class="col col-lg-6">
+                @php
+                    $sub_total = 0;
+                    if ($type == 1) {
+                        $sub_total = $total - $discount;
+                    } else if($type == 2) {
+                        $sub_total = $total - $total * $discount / 100;
+                    } else {
+                        $sub_total = $total;
+                    }
+                @endphp
                 <div class="cart_total_table">
                     <h3 class="wrap_title">Cart Totals</h3>
                     <ul class="ul_li_block">
                         <li>
                             <span>Cart Subtotal</span>
-                            <span>${{ $total }}</span>
+                            <span>${{ $sub_total }}</span>
                         </li>
                         <li>
                             <span>Delivery Charge</span>

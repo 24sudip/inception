@@ -1,0 +1,39 @@
+Class-work=>30,35('32'),37('34'),38,40;
+Class-room=>30,31,33,34,35('32'),37('34'),38,40;
+messenger(drive-link)=>36;
+messenger(youtube-link)=>41=>https://www.youtube.com/watch?v=b4Yy4aprYFQ
+composer create-project laravel/laravel sudip --ignore-platform-req=ext-fileinfo
+composer global require laravel/installer
+laravel new app-name
+extension=pdo_mysql
+extension=gd
+extension=fileinfo
+//
+[mysqld]
+skip-grant-tables for my.ini
+socket:
+//
+;extension= commment for php.ini
+# MAIL_MAILER= commment for .env
+curl.cainfo = "C:\xampp\php\windowsXamppPhp\cacert.pem"
+inceptionShops
+//
+cp .env.example .env
+composer i
+npm i
+php artisan key:generate
+code .
+//
+id
+name
+product_category
+purchase_price
+regular_price
+discount_price->optional
+description
+long_description
+additional_information
+thumbnail->optional
+
+
+

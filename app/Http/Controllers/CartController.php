@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\User;
+use App\Models\Coupon;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -22,10 +23,27 @@ class CartController extends Controller
         ]);
         return back()->with('cartInsertMsg','Cart Added Successfully');
     }
-    
-    public function cartView()
+
+    public function cartView(Request $request)
     {
-        return view('frontend.cartView');
+        $coupon_name = $request->coupon_name;
+        $msg = "";
+        $discount = 0;
+        $type = "";
+        if ($coupon_name == "") {
+            $msg = "";
+        } else if (Coupon::where('coupon_name', $coupon_name)->exists()) {
+            $msg = "Coupon Added. Don't Go Back";
+            $discount = Coupon::where('coupon_name', $coupon_name)->first()->discount;
+            $type = Coupon::where('coupon_name', $coupon_name)->first()->type;
+        } else {
+            $msg = "Invalid Coupon. Go Back";
+        }
+        return view('frontend.cartView',[
+            'discount'=>$discount,
+            'msg'=>$msg,
+            'type'=>$type,
+        ]);
     }
 
     public function cartDelete($cart_delete_id)

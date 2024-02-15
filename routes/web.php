@@ -75,6 +75,7 @@ Route::post('/cartUpdate', [CartController::class, 'cartUpdate'])->name('cartUpd
 // Coupon
 Route::get('/coupon', [CouponController::class, 'coupon'])->name('coupon');
 Route::post('/couponAdd', [CouponController::class, 'couponAdd'])->name('couponAdd');
+Route::get('/coupon/delete/{id}', [CouponController::class, 'couponDelete'])->name('coupon.delete');
 // Coupon
 
 Auth::routes();
