@@ -1,4 +1,4 @@
-
+{{--  --}}
 <!doctype html>
 <html lang="en">
 <head>
@@ -32,9 +32,7 @@
 
     <!-- select option - css include -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend_assets') }}/css/nice-select.css">
-
-    <!-- woocommercen - css include -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('frontend_assets') }}/css/woocommerce.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend_assets') }}/css/woocommerce-2.css">
 
     <!-- custom - css include -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend_assets') }}/css/style.css">

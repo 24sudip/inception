@@ -76,7 +76,7 @@
             <div class="row">
                 <div class="col col-lg-6">
                     @if ($msg)
-                    <div class="alert alert-danger">{{ $msg }}</div>
+                    <div class="alert alert-primary">{{ $msg }}</div>
                     @else
                     <p>Type Coupon Name</p>
                     @endif
@@ -90,7 +90,16 @@
                         </div>
                     </form>
                 </div>
-
+                @php
+                    $sub_total = 0;
+                    if ($type == 1) {
+                        $sub_total = $total - $discount;
+                    } else if($type == 2) {
+                        $sub_total = $total - $total * $discount / 100;
+                    } else {
+                        $sub_total = $total;
+                    }
+                @endphp
                 <div class="col col-lg-6">
                     <form action="{{ route('cartUpdate') }}" method="post">
                         @csrf
@@ -107,14 +116,19 @@
                         </ul>
                     </form>
                     <ul class="btns_group ul_li_right">
-                        <li><a class="btn btn_dark" href="#!">Prceed To Checkout</a></li>
+                        @php
+                            session([
+                                'sub_total'=>$sub_total,
+                            ]);
+                        @endphp
+                        <li><a class="btn btn_dark" href="{{ route('checkout') }}">Prceed To Checkout</a></li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col col-lg-6">
+            {{-- <div class="col col-lg-6">
                 <div class="calculate_shipping">
                     <h3 class="wrap_title">Calculate Shipping <span class="icon"><i class="far fa-arrow-up"></i></span></h3>
                     <form action="#">
@@ -129,33 +143,29 @@
                         <button type="submit" class="btn btn_primary rounded-pill">Update Total</button>
                     </form>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col col-lg-6">
-                @php
-                    $sub_total = 0;
-                    if ($type == 1) {
-                        $sub_total = $total - $discount;
-                    } else if($type == 2) {
-                        $sub_total = $total - $total * $discount / 100;
-                    } else {
-                        $sub_total = $total;
-                    }
-                @endphp
+            <div class="col col-lg-12">
                 <div class="cart_total_table">
                     <h3 class="wrap_title">Cart Totals</h3>
                     <ul class="ul_li_block">
                         <li>
                             <span>Cart Subtotal</span>
-                            <span>${{ $sub_total }}</span>
+                            <span class="total_price">${{ $total }}</span>
                         </li>
                         <li>
-                            <span>Delivery Charge</span>
-                            <span>$5</span>
+                            <span>Discount</span>
+                            <span>
+                                @if ($type == 1)
+                                {{ $discount }}
+                                @else
+                                {{ $total * $discount / 100 }}
+                                @endif
+                            </span>
                         </li>
                         <li>
                             <span>Order Total</span>
-                            <span class="total_price">$57.50</span>
+                            <span>{{ $sub_total }}</span>
                         </li>
                     </ul>
                 </div>

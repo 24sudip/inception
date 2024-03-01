@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\{CategoryController, ColorController, CouponController};
+use App\Http\Controllers\{CategoryController, ColorController, CouponController, CheckoutController};
 use App\Http\Controllers\{ProductController, VariationsController, InventoryController, CartController};
 use Illuminate\Support\Facades\Auth;
 
@@ -77,6 +77,12 @@ Route::get('/coupon', [CouponController::class, 'coupon'])->name('coupon');
 Route::post('/couponAdd', [CouponController::class, 'couponAdd'])->name('couponAdd');
 Route::get('/coupon/delete/{id}', [CouponController::class, 'couponDelete'])->name('coupon.delete');
 // Coupon
+
+// Checkout
+Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('/order/store', [CheckoutController::class, 'OrderStore'])->name('order.store');
+Route::get('/order/success', [CheckoutController::class, 'OrderSuccess'])->name('order.success');
+// Checkout
 
 Auth::routes();
 //Route::get('/register', function () {
