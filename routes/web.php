@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\{CategoryController, ColorController, CouponController, CheckoutController};
+use App\Http\Controllers\{CategoryController, ColorController, CouponController, CheckoutController, OrderController};
 use App\Http\Controllers\{ProductController, VariationsController, InventoryController, CartController};
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,26 @@ Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout
 Route::post('/order/store', [CheckoutController::class, 'OrderStore'])->name('order.store');
 Route::get('/order/success', [CheckoutController::class, 'OrderSuccess'])->name('order.success');
 // Checkout
+
+// Order
+Route::get('/orders', [OrderController::class, 'orders'])->name('orders');
+Route::post('/order/status/{order_id}', [OrderController::class, 'orderStatus'])->name('order.status');
+// Order
+
+// SSLCOMMERZ Start
+// Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+// Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::get('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+// Route::post('https://sandbox.sslcommerz.com/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
 
 Auth::routes();
 //Route::get('/register', function () {

@@ -820,11 +820,10 @@
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-381-layer-1"></i>
-							<span class="nav-text">Pages</span>
+							<span class="nav-text">Orders</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="./page-register.html">Register</a></li>
-                            <li><a href="./page-login.html">Login</a></li>
+                            <li><a href="{{ route('orders') }}">Orders</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">

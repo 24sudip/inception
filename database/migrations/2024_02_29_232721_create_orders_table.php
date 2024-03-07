@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('discount')->nullable();
             $table->string('charge');
             $table->string('total');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

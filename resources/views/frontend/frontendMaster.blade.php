@@ -278,7 +278,7 @@
                     @auth()
                     <ul class="btns_group ul_li_block clearfix">
                         <li><a class="btn btn_primary" href="{{ route('cartView') }}">View Cart</a></li>
-                        <li><a class="btn btn_secondary" href="checkout.html">Checkout</a></li>
+                        <li><a class="btn btn_secondary" href="{{ route('checkout') }}">Checkout(without discount)</a></li>
                     </ul>
                     @else
                     <ul class="btns_group ul_li_block clearfix">

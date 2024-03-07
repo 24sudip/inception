@@ -75,7 +75,9 @@
         <div class="cart_btns_wrap">
             <div class="row">
                 <div class="col col-lg-6">
-                    @if ($msg)
+                    @if ($msg == "Invalid Coupon. Go Back")
+                    <div class="alert alert-danger">{{ $msg }}</div>
+                    @elseif ($msg == "Coupon Added. Don't Go Back")
                     <div class="alert alert-primary">{{ $msg }}</div>
                     @else
                     <p>Type Coupon Name</p>

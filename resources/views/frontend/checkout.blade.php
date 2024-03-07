@@ -139,16 +139,17 @@
                                 <!--custom change-->
                                 <label for="payment_method_ssl">SSL Commerz</label>
                             </li>
-                            <li class="wc_payment_method payment_method_paypal">
+                            {{-- <li class="wc_payment_method payment_method_paypal">
                                 <input id="payment_method_stripe" type="radio" class="input-radio" name="payment_method" value="3" data-order_button_text="Proceed to SSL Commerz" />
                                 <!--grop add span for radio button style-->
                                 <span class='grop-woo-radio-style'></span>
                                 <!--custom change-->
                                 <label for="payment_method_stripe">Stripe Payment</label>
-                            </li>
+                            </li> --}}
                         </ul>
-                        <input type="hidden" name="discount" value="{{ $total - session('sub_total') }}">
-                        <input type="hidden" name="sub_total" value="{{ session('sub_total') }}">
+                        <input type="hidden" name="customer_id" value="{{ Auth::id() }}">
+                        <input type="hidden" name="discount" value="{{ $total - session('sub_total')}}">
+                        <input type="hidden" name="total" value="{{ session('sub_total')}}">
                         <div class="form-row place-order">
                             <noscript>
                                 Since your browser does not support JavaScript, or it is disabled, please ensure you click the <em>Update Totals</em> button before placing your order. You may be charged more than the amount stated above if you fail to do so.
