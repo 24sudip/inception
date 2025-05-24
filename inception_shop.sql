@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2024 at 07:31 AM
+-- Generation Time: May 07, 2025 at 06:44 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -123,6 +123,21 @@ INSERT INTO `coupons` (`id`, `coupon_name`, `type`, `discount`, `coupon_date`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `email_verification_tokens`
+--
+
+CREATE TABLE `email_verification_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `expired_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -196,7 +211,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2024_01_23_114837_create_carts_table', 1),
 (17, '2024_02_08_132554_create_coupons_table', 2),
 (18, '2024_02_29_232721_create_orders_table', 3),
-(20, '2024_03_05_120359_create_order_products_table', 4);
+(20, '2024_03_05_120359_create_order_products_table', 4),
+(21, '2025_04_12_140752_create_email_verification_tokens_table', 5);
 
 -- --------------------------------------------------------
 
@@ -436,7 +452,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `profile_photo`, `role`) VALUES
 (1, 'Sudip Saha', 'sudip2tenber@gmail.com', NULL, '$2y$10$jt5MOsB7DFAcIDyeOWSx5OWzMbU84JdRO3XGXFFD.QFctHBBIMrZG', NULL, '2024-02-01 06:53:00', '2024-02-01 06:53:00', NULL, 'admin'),
-(2, 'Sagari Saha', 'saha.sagari.123@gmail.com', NULL, '$2y$10$Fryz6B10Tr2GKn79E3ZUpe9vIQxyQ1OQIWIErBYpTr27xyvN8Njdm', NULL, '2024-02-01 07:15:22', NULL, NULL, 'customer');
+(2, 'Sagari Saha', 'saha.sagari.123@gmail.com', NULL, '$2y$10$Fryz6B10Tr2GKn79E3ZUpe9vIQxyQ1OQIWIErBYpTr27xyvN8Njdm', NULL, '2024-02-01 07:15:22', NULL, NULL, 'customer'),
+(3, 'Wisdom', 'diala@gmail.com', NULL, '$2y$10$gkU6x6s6wIPcM1R9X6vT9ei4KelWnxUk.KTtcXmvSu0DEx0bOCkyS', NULL, '2025-04-12 05:06:15', '2025-05-07 04:40:46', NULL, 'admin'),
+(4, 'Wisdom2', 'diala2@gmail.com', '2025-05-06 11:21:59', '$2y$10$HgPa5R8Ewt1Siv6tN.zyaeHtlSz20pY77swz3X/Y.P./JPPzZUuKC', NULL, '2025-05-06 06:20:49', '2025-05-06 11:21:59', NULL, 'admin');
 
 --
 -- Indexes for dumped tables
@@ -464,6 +482,12 @@ ALTER TABLE `colors`
 -- Indexes for table `coupons`
 --
 ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `email_verification_tokens`
+--
+ALTER TABLE `email_verification_tokens`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -583,6 +607,12 @@ ALTER TABLE `coupons`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `email_verification_tokens`
+--
+ALTER TABLE `email_verification_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -598,7 +628,7 @@ ALTER TABLE `inventories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -652,7 +682,7 @@ ALTER TABLE `teams`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
